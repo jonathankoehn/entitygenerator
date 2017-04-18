@@ -1,0 +1,38 @@
+grammar jkoehn.ma.EgLanguage with org.eclipse.xtext.common.Terminals
+
+generate egLanguage "http://www.ma.jkoehn/EgLanguage"
+List:
+	('package' package=ID)?
+	('extends' extends=ID)?
+	classes+=Class*
+;
+Class:
+	classcomment=ML_COMMENT?
+	classname=Classname
+	attributes+=Attribute*
+;
+	
+Classname:
+	'class' classname=ID':';
+
+Attribute:
+	ac=Access? dt=Datatype? attname=TypeAttname ('!' constructor=INT)*
+;
+Datatype:
+	TypeDatastructure | TypeDatatype
+;
+
+TypeDatastructure:
+	'ArrayList<'TypeDatatype'>' | 'HashSet<'TypeDatatype'>' | 'HashMap<'TypeDatatype'>'
+;
+TypeDatatype:
+	'boolean' | 'byte' | 'char' | 'double' | 'float' | 'int' | 'long' | 'short' | 'String'
+;
+
+TypeAttname:
+	ID
+;
+
+Access:
+	'public' | 'protected' |'private'
+;
